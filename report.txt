@@ -1,0 +1,78 @@
+Final Report:
+Patrick Drumm and Kris Thieneman
+
+User's Perspective:
+The program begins by displaying instructions to the user in the gfx window.
+It prompts the user to press 'p' to start the game and press 'q' to pause the 
+game at any time. Once the user presses p the game begins. The score, number of
+lives, rocket, and asteroids on the screen. The user then uses the arrow keys
+to move around the screen and the space bar to fire bullets that will destroy 
+the asteroids. If the all the asteroids are cleared a new level begins with
+one more asteroid than the previous level. For every 10000 points the user
+gets and extra life. If they run out of lives the game ends and the score is
+displayed to the user. They then have the option to play again or exit the
+game.
+
+Programmer's Perspective:
+The program begins by opening a gfx window and calling a function that prints
+instructions for the game on the gfx window. It then waits for the user to
+press 'p' to start playing the game. Once the game starts the program enters a
+while loop in main which goes until stillgoing is equal to 0, which happens 
+either when the player loses the game or chooses to quit. This while loop
+first checks to see if any asteroids exist by checking if the head point
+for the linked list of asteroids points to NULL. If this is true it creates
+two more asteroids than the current level the user is on.
+
+The program then clears that screen and draws the number of lives, the
+asteroids, the rocket, the bullets, and the current score. It then checks for
+input from the user and enters a switch to process their input. If either the
+left or right arrow key is pressed it turns in the proper direction. If the
+up arrow key is pressed it accelerates for every press until the acceleration
+reaches a maximum speed. If the down arrow key is pressed the rocket stops 
+immediately. If the space bar is pressed a bullet is "fired" by adding an
+element to the linked list of bullets so that it is printed on the screen. If
+'q' is pressed the game is paused and the user is asked if they want to
+continue or quit the game. Finally all other keys enter the default case where
+nothing happens.
+
+After the switch is exited the positions of the rocket and asteroids are
+update with their next positions. The function to warps the objects across the
+screen is then called to check if any objects have hit the edge of the screen
+and if so moves them. A function is then called that checks if any bullets or
+the rocket have hit an asteroid and returns the number of lives the player
+has. If the player has zero lives after this check stillgoing is set to zero.
+If the player has reached a new multiple of 10000 an extra life is added.
+The order of these two checks means that if a player hits and asteroid to lose
+their last life but get a score necessary for an extra life, they still lose
+the game. At the end of the while loop, if stillgoing is equal to zero the
+game ends. A function is called that displays a game over message with the 
+users score and the option to play again. All the asteroids are then deleted
+and the variables necessary for a new game are reset. If the player chooses to
+play again a new game starts with a score of zero, three lives, and new random
+positions of asteroids. If they do not choose to play again the gfx window
+closes.
+
+This program utilizes linked lists in order to control the bullets and
+asteroids on the screen. This seemed logical, because then there would be no
+limit to the number of bullets the user could shoot, or to the number of
+asteroids on the screen. Thus, theoretically, the user could play infinitely
+many levels, as long as they do not lose all of their lives. Both the
+asteroids and bullets use a tail pointer to add the new links to the end of
+the list. 
+
+While playing, this program is constantly checking certain positions. It keeps
+track of multiple centers, radii, and edges in order to determine when
+certain objects make contact with each other. We use some simple geometry to
+determine whether asteroids make contact with bullets or asteroids, and when
+any object hits the edge of the screen.
+
+Output Verification:
+We verified that the output was correct by observing that the game worked as
+it should. The first aspect that we needed to verify was that it displayed the
+proper number of objects on the screen. Then we verified that the objects
+properly warped from one side of the screen to the other. Lastly we checked
+that if a bullet hit an asteroid, the bullet would disappear and the asteroid
+would split in two. Similarly, if the rocket hit an asteroid, the asteroid
+would split and the player would lose a life and have the rocket reset in the
+center of the screen. Once the player ran out of lives we checked that they
+actually were out of lives and that they had the proper score recorded.
